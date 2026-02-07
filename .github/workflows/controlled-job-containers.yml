@@ -48,6 +48,7 @@ jobs:
         - name: define output variable
           id: buildStep
           run: |
-            bunVer = $(bun --version)
+            bunVer=$(bun --version)
             echo "buildOutput=$bunVer" >> "$GITHUB_OUTPUT"
           #gets the bun version stores in buildOutput and passes to step outputs
+          #remember no spaces between bunVer=$(bun --version)
