@@ -24,7 +24,7 @@ jobs:
         id: multiLineEcho
         shell: cmd
         run: |
-          line 1 echo
-          line 2 echo
+          echo line 1 echo
+          echo line 2 echo
         
         
