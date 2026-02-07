@@ -1,6 +1,6 @@
 name: matrix
 
-on: 
+on:
   push:
     branches:
       - main
@@ -10,16 +10,20 @@ jobs:
     name: matrix job runner
     strategy:
       matrix:
-        runner: [windows-latest,ubuntu-latest]
-        python-version: [3.11,3.12,3.13]
+        runner: [windows-latest, ubuntu-latest]
+        python-version: [3.11, 3.12, 3.13]
         include:
           - runner: macos-latest
             python-version: 3.13
         exclude:
           - runner: windows-latest
-            python-version: [3.11,3.12]
+            python-version: 3.11
+          - runner: windows-latest
+            python-version: 3.12
+
     runs-on: ${{ matrix.runner }}
+
     steps:
       - run: |
-          echo "python version: ${{ matrix.runner }}"
-          echo "running on $ {{ matrix.python-version }}"
+          echo "running on: ${{ matrix.runner }}"
+          echo "python version: ${{ matrix.python-version }}"
