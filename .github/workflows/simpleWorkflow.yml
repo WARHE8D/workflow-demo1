@@ -20,6 +20,10 @@ jobs:
         shell: python #can be cmd prompt or anyother shell commands
         run: print("print in python print statement sum of 12 n 11 =",12+11)
 
+  jobId2:
+    name: windowEnv
+    runs-on: windows-latest
+    steps:
       - name: multi line echo
         shell: cmd
         run: |
