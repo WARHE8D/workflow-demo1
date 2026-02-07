@@ -34,7 +34,7 @@ jobs:
       steps:
         - run: |
             echo "printing the build output from buildImage job into deployImage job..."
-            echo "${{ needs.buildImage.outputs.build-output }}
+            echo "${{ needs.buildImage.outputs.build-output }}"
 
     buildImage:
       name: build job
