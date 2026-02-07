@@ -2,6 +2,9 @@ name: simple workflow
 
 on: 
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   jobId1:
@@ -16,5 +19,12 @@ jobs:
         id: pyPrint
         shell: python #can be cmd prompt or anyother shell commands
         run: print("print in python print statement sum of 12 n 11 =",12+11)
+
+      - name: multi line echo 
+        id: multiLineEcho
+        shell: cmd
+        run: |
+          line 1 echo
+          line 2 echo
         
         
