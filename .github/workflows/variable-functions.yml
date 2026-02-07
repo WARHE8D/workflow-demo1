@@ -41,7 +41,9 @@ jobs:
           echo ${{ env.localStr }}
       - name: testing string
         if: ${{ (contains(env.testStr,'testing')) }}
-        run: echo the string contains testing
+        run: |
+          echo the string contains testing
+          echo this is the global var: ${{ env.WF_VAR }}
       - name: testing failure
         #Returns true when any previous step of a job fails. If you have a chain of dependent jobs, failure() returns true if any ancestor job fails.
         if: (failure())
