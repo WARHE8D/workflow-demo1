@@ -1,0 +1,52 @@
+name: Github functions and variables
+
+env:
+  WF_VAR: workflow level variable #global var across this file
+
+on: 
+  workflow_dispatch:
+  push:  
+    branches:
+      - main
+
+jobs:
+  job1:
+    name: conditions
+    runs-on: ubuntu-latest
+    # only runs job1 if its a pull request
+    if: (github.event_name=='pull_request')
+    env:
+      JOB_VAR: Job level variable (inside job-conditions), available only in this job
+
+  job2:
+    name: variables
+    runs-on: ubuntu-latest
+    env:
+      testBool: ${{ true }}
+      testInt: 32
+      testStr: testing variables
+      testNull: ${{ null }}
+    steps:
+      - name: testing null
+        if: (env.testNull == null)
+        env:
+          localStr: local string in null job 
+        run: |
+          echo this variable is null
+          echo ${{ env.localStr }}
+      - name: testing bool
+        if: ${{ (fromJson(env.testBool)) }}
+        run: |
+          echo this variable is true
+          echo ${{ env.localStr }}
+      - name: testing string
+        if: ${{ (contains(env.testStr,'testing')) }}
+        run: echo the string contains testing
+      - name: testing failure
+        #Returns true when any previous step of a job fails. If you have a chain of dependent jobs, failure() returns true if any ancestor job fails.
+        if: (failure())
+        run: echo a step in this job failed
+    
+  
+
+    
