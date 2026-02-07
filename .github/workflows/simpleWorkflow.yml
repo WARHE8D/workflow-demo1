@@ -1,0 +1,20 @@
+name: simple workflow
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  jobId1:
+    name: simple print
+    runs-on: ubuntu-latest
+    steps:
+      - name: simple echo print
+        id: echoPrint
+        run: echo "Echo Print complete"
+
+      - name: simple python print
+        id: pyPrint
+        shell: python #can be cmd prompt or anyother shell commands
+        run: print("print in python print statement sum of 12 n 11 =",12+11)
+        
+        
