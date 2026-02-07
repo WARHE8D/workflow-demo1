@@ -17,6 +17,9 @@ jobs:
     if: (github.event_name=='pull_request')
     env:
       JOB_VAR: Job level variable (inside job-conditions), available only in this job
+    steps:
+      - name: global var get
+        run: "echo global var called: ${{ env.WF_VAR }}"
 
   job2:
     name: variables
@@ -47,7 +50,7 @@ jobs:
       - name: testing failure
         #Returns true when any previous step of a job fails. If you have a chain of dependent jobs, failure() returns true if any ancestor job fails.
         if: (failure())
-        run: echo a step in this job failed
+        run: "echo a step in this job failed"
     
   
 
