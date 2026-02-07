@@ -1,0 +1,53 @@
+name: containerized jobs with concurrent execution
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+    concurrentTest2:
+      name: concurrent2
+      runs-on: ubuntu-latest
+      #this makes only 1 job to run from the same group
+      concurrency:
+        group: concurrencyGrp #same group
+      steps:
+        - run: sleep 10
+
+    concurrentTest1:
+      name: concurrent1
+      runs-on: ubuntu-latest
+      concurrency:
+        group: concurrencyGrp
+      steps:
+        - run: sleep 10
+              
+
+
+    deployImage:
+      name: deploy Bun
+      runs-on: ubuntu-latest
+      # dependent on buildImage job; skips if buildImage fails
+      needs: buildImage
+      steps:
+        - run: |
+            echo "printing the build output from buildImage job into deployImage job..."
+            echo "${{ needs.buildImage.outputs.build-output }}
+
+    buildImage:
+      name: build job
+      runs-on: ubuntu-latest
+      outputs:
+      #stores the version in this output
+        build-output: ${{ steps.buildStep.outputs.buildOutput }}
+      container:
+        image: oven/bun:slim #gets this image from docker
+      steps:
+        - name: define output variable
+          id: buildStep
+          run: |
+            bunVer = $(bun --version)
+            echo "buildOutput=$bunVer >> "$GITHUB_OUTPUT"
+          #gets the bun version stores in buildOutput and passes to step outputs
