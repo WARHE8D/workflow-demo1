@@ -43,11 +43,11 @@ jobs:
       #stores the version in this output
         build-output: ${{ steps.buildStep.outputs.buildOutput }}
       container:
-        image: oven/bun:slim #gets this image from docker
+        image: oven/bun:1.0.7-slim #gets this image from docker
       steps:
         - name: define output variable
           id: buildStep
           run: |
             bunVer = $(bun --version)
-            echo "buildOutput=$bunVer >> "$GITHUB_OUTPUT"
+            echo "buildOutput=$bunVer" >> "$GITHUB_OUTPUT"
           #gets the bun version stores in buildOutput and passes to step outputs
