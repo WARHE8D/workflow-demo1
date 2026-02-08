@@ -1,5 +1,6 @@
 name: artifacts
 on:
   push:
+    branches: main
     paths:
-      - '**/artifacts/.github/workflows/artifacts.yml'
+      - artifacts/**
