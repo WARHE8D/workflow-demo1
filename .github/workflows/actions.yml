@@ -1,0 +1,28 @@
+name: actions
+
+on: 
+  push:
+    branches: [main]
+    paths-ignore: ".github/workflows/**"
+
+jobs:
+  listFiles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: list-files
+        run: ls
+      - name: checkout
+        uses: actions/checkout@v6.0.2
+      - name: list-files
+        run: ls
+  update_animes:
+      runs-on: ubuntu-latest
+      name: Updates README Anime List
+      steps:
+        - uses: actions/checkout@v2
+        - uses: glup3/anilist-animes-action@v1.1.0
+          with:
+            ANILIST_USERNAME: 'glup3'
+            HEADER_TITLE: "Glup3's cool awesome Animes"
+  
+      
